@@ -1,0 +1,134 @@
+/* Site Styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+	font-family: 'Lato', sans-serif;
+	height: 100%;
+	padding: 0 2%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+a {
+	color: #5BC0DE;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #F57C00;
+	-webkit-animation: pulse 1s linear infinite;
+	-moz-animation: pulse 1s linear infinite;
+	-ms-animation: pulse 1s linear infinite;
+	animation: pulse 1s linear infinite;
+}
+
+.wrapper {
+	flex: 1 0 auto;
+}
+
+.row {
+	flex: 1 100%;
+	margin-top: 1rem;
+}
+
+/* Search Styles */
+.search {
+	padding: 1rem 0 10rem 0;
+	text-align: center;
+}
+
+.search h1 {
+	color: #16A19B;
+	font-weight: 300;
+}
+
+.search form input {
+	border: 1px solid #5BC0DE;
+	border-radius: 2rem;
+	color:  #FF8F12;
+	font-size: 16px;
+	height: 4rem;
+	padding: 0 1rem;
+	width: 90%;
+}
+
+.search form input:focus {
+	outline: none;
+}
+
+.search button {
+	background: none;
+	border: none;
+	border-radius: 50%;
+	color: #6EC6C5;
+	cursor: pointer;
+	font-size: 24px;
+	margin-left: -6%;
+}
+
+
+.search button i:hover {
+	color: #FF8F12;
+	-webkit-animation: spin 1s linear 1;
+	-moz-animation: spin 1s linear 1;
+	-ms-animation: spin 1s linear 1;
+	animation: spin 1s linear 1;
+}
+
+/* Navbar & Footer Styles */
+.navbar .navbar-items,
+.footer .footer-items {
+  display: flex;
+  font-family: 'Quicksand';
+  justify-content: space-between;
+	padding: 1.25rem 0.5rem;
+}
+
+.navbar .navbar-items ul li,
+.footer .footer-items ul li  {
+  display: inline-block;
+	list-style: none;
+	padding: 0 1rem;
+}
+
+.navbar .navbar-items ul li a,
+.footer .footer-items ul li a {
+	display: flex;
+	align-items: flex-start;
+}
+
+/* Animations */
+@-moz-keyframes pulse {
+	25% {color: #FF8F12;}
+	75% {color: #FFB364;}
+}
+
+@-webkit-keyframes pulse {
+  25% {color: #FF8F12;}
+	75% {color: #FFB364;}
+}
+
+@-moz-keyframes spin {
+	100% {
+		-moz-transform: rotate(360deg);
+	}
+}
+
+@-webkit-keyframes spin {
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spin {
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform:rotate(360deg);
+	}
+}
