@@ -39,6 +39,11 @@
 
 	// Make the results UI
 	const formatResults = (results) => {
+		if (resultsTotal > limit) {
+			makePaginator()
+	  	watchPageClicks()
+		}
+
 		results.map((resultItem) => {
 			let itemDiv = resultsDiv.appendChild(makeResultItemDiv())
 			itemDiv.appendChild(makeAvatar(resultItem.avatarUrl))
@@ -84,10 +89,35 @@
 		return el
 	}
 
+	// Make the pagination UI
+	const makePaginator = () => {
+		let totalPages = Math.ceil(resultsTotal / limit)
+		let paginatorDiv = resultsDiv.appendChild(makePaginatorDiv(totalPages))
+		Array(totalPages).fill().map((_, page) => {
+			paginatorDiv.appendChild(makePageButton(page))
+		})
+	}
+
+	const makePageButton = (page) => {
+		let el = document.createElement('a')
+		page === start ? el.setAttribute('class', 'page-number active') : el.setAttribute('class', 'page-number')
+		// Adding 1 so that start can be 0 but the UI can show page 1
+		el.appendChild(document.createTextNode(page + 1))
+		return el
+	}
+
+	const makePaginatorDiv = () => {
+		let el = document.createElement('div')
+		el.setAttribute('class', 'paginator')
+		return el
+	}
+
+	// Clear results UI
 	const clearResults = () => {
 		resultsDiv.innerHTML = ''
 	}
 
+	// Clear results UI and reset the API variables
 	const clearAll = () => {
 		clearResults()
 		query = null
@@ -131,6 +161,18 @@
 				}, 1000)
 			}
 		}
+	}
+
+	// Get next set of results based on page click & highlight that page as active
+	const watchPageClicks = () => {
+		let pages = [].slice.call(document.getElementsByClassName('page-number'))
+		pages.map((page) => {
+			page.addEventListener('click', function() {
+				start = page.text-1
+				page.setAttribute('class', 'page-number active')
+				searchCompanies()
+			})
+		})
 	}
 
 	// Tell the DOM to listen to events when it is 'ready'
