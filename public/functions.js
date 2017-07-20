@@ -111,7 +111,7 @@
 		const laborTypes = [].slice.call(document.getElementsByClassName('labor-types'))
 		laborTypes.map((type) => {
 			type.addEventListener('click', function() {
-				laborType = type.text
+				type.text === 'None' ? laborType = '' : laborType = type.text
 				if (query !== null) {
 					searchCompanies()
 				}
