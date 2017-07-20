@@ -1,4 +1,6 @@
-/* Site Styles */
+/********************************/
+/* 					SITE STYLES					*/
+/********************************/
 * {
   box-sizing: border-box;
 }
@@ -10,6 +12,10 @@ html, body {
 }
 
 body {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-direction: column;
 }
@@ -41,29 +47,18 @@ a:hover {
 	margin-top: 1rem;
 }
 
-/* Search Styles */
+/********************************/
+/*		 		SEARCH STYLES	 				*/
+/********************************/
 .search-heading h1 {
 	color: #16A19B;
 	font-weight: 300;
+	padding-bottom: 2rem;
 	text-align: center;
 }
 
 .search-form {
-	display: -webkit-flex;
-	display: flex;
-	flex-flow: row nowrap;
-	padding: 1rem 0 1rem 0;
 	text-align: center;
-}
-
-.search-form ul {
-  display: -webkit-flex;
-  display: flex;
-  flex-flow: row wrap;
-  flex-shrink: 1;
-  justify-content: space-around;
-  padding: 0;
-  width: 100%;
 }
 
 .search-form input[type=search] {
@@ -77,25 +72,26 @@ a:hover {
 	color: #FF8F12;
 	font-size: 16px;
 	height: 4rem;
-	padding: 0 6rem;
-	width: 90%;
+	padding: 0 10rem;
+	width: 80%;
 }
 
 .search-form #search-field:focus {
 	outline: none;
 }
 
-.search button {
+.search-form .icon {
 	background: none;
 	border: none;
-	border-radius: 50%;
 	color: #6EC6C5;
-	cursor: pointer;
-	font-size: 24px;
-	margin-left: -6%;
+	font-size: 18px;
 }
 
-.search-form .button i:hover {
+.search-form .icon i {
+	font-size: 24px;
+}
+
+.search-form .icon i:hover {
 	color: #FF8F12;
 	-webkit-animation: spin 1s linear 1;
 	-moz-animation: spin 1s linear 1;
@@ -103,35 +99,69 @@ a:hover {
 	animation: spin 1s linear 1;
 }
 
-.search .dropdown > ul {
-	background: #16a19b;
-	border-radius: 10px;
-	display: block;
-	padding-left: 0;
+.search-form #search-icon {
+	margin-left: -11%;
 }
 
-.search .dropdown > ul li {
+.search-form .dropdown {
+	display: inline-block;
+	height: 140px;
+	position: absolute;
+	top: 250px;
+	left: 21%;
+	width: 140px;
+	z-index: 9999;
+}
+
+@media all and (max-width: 610px) {
+	.search-form #search-field {
+		padding: 0 2rem;
+	}
+
+  .search-form .dropdown {
+    display: block;
+    height: auto;
+    position: static;
+    width: auto;
+  }
+}
+
+.search-form .dropdown > ul {
+	background: #16A19B;
+	padding: 0;
+  width: 100%;
+}
+
+.search-form .dropdown > ul li {
   display: none;
   position: absolute;
   z-index: 99;
 }
 
-.search .dropdown:hover > ul li {
+.search-form .dropdown:hover > ul li {
   display: block;
-  position: relative;
-  text-align: left;
-}
-
-.search .dropdown:hover > ul li {
   padding: 10px;
+  position: relative;
 }
 
-.search .dropdown:hover > ul li a {
-  color: #FFFFFF;
+.search-form .dropdown:hover > ul li a {
+	color: #0B3854;
+  display: block;
+  font-size: 14px;
 }
 
-/* Result Styles */
+.search-form .dropdown ul li:hover {
+	background-color: #CCF3FF;
+}
+
+/********************************/
+/* 				RESULT STYLES		 			*/
+/********************************/
 .results {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-flow: row wrap;
 	flex-shrink: 1;
@@ -170,14 +200,24 @@ a:hover {
 	color: #49D1F9;
 }
 
-/* Navbar & Footer Styles */
+/********************************/
+/* 		NAVBAR & FOOTER STYLES 		*/
+/********************************/
 .navbar .navbar-items,
 .footer .footer-items {
-  display: -webkit-flex;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
   display: flex;
+  flex-flow: row wrap;
   font-family: 'Quicksand';
-  justify-content: space-between;
+  justify-content: space-around;
 	padding: 1.25rem 0.5rem;
+}
+
+.footer .footer-items {
+	flex-flow: initial;
 }
 
 .navbar .navbar-items ul li,
@@ -188,18 +228,29 @@ a:hover {
 
 .navbar .navbar-items ul li a,
 .footer .footer-items ul li a {
-  display: -webkit-flex;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
-	align-items: flex-start;
+	flex-flow: row wrap;
+	justify-content: space-around;
 }
 
-/* Animations */
+/********************************/
+/* 					ANIMATIONS 					*/
+/********************************/
 @-moz-keyframes pulse {
 	25% {color: #FF8F12;}
 	75% {color: #FFB364;}
 }
 
 @-webkit-keyframes pulse {
+  25% {color: #FF8F12;}
+	75% {color: #FFB364;}
+}
+
+@keyframes pulse {
   25% {color: #FF8F12;}
 	75% {color: #FFB364;}
 }
