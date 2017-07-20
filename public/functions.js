@@ -85,6 +85,7 @@
 		let el = document.createElement('a')
 		el.href = attr
 		el.setAttribute('class', 'result-item-info')
+		el.setAttribute('target', '_blank')
 		el.appendChild(document.createTextNode(attr))
 		return el
 	}
@@ -127,6 +128,34 @@
 		resultsTotal = null
 	}
 
+	// Helper-type functions
+	const setQuery = () => {
+		query = searchField.value
+	}
+
+	const checkQuery = () => {
+		if (query === '' || query === ' ' || query === null) return true
+	}
+
+	const runQuery = () => {
+		setQuery()
+		checkQuery() ? clearAll() : searchCompanies()
+	}
+
+	const delayQuery = (func, ms, immediate) => {
+	  let timeout
+	  return () => {
+	    let run = immediate && !timeout
+	    let wait = () => {
+	      timeout = null
+	      if (!immediate) func.apply(this, arguments)
+	    }
+	    clearTimeout(timeout)
+	    timeout = setTimeout(wait, ms)
+	    if (run) func.apply(this, arguments)
+	  }
+	}
+
 	// Make the magic happen
 	const searchCompanies = () => {
 		clearResults()
@@ -142,25 +171,14 @@
 		laborTypes.map((type) => {
 			type.addEventListener('click', function() {
 				type.text === 'None' ? laborType = '' : laborType = type.text
-				if (query !== null) {
-					searchCompanies()
-				}
+				runQuery()
 			})
 		})
 	}
 
 	// Watch for changes in search input
 	const watchSearchField = () => {
-		searchField.oninput = () => {
-			query = searchField.value
-			if (query === '') {
-				clearAll()
-			} else {
-				setTimeout(() => {
-					searchCompanies()
-				}, 1000)
-			}
-		}
+		searchField.oninput = delayQuery(runQuery, 1000)
 	}
 
 	// Get next set of results based on page click & highlight that page as active
