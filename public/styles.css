@@ -26,16 +26,16 @@ a {
 	text-decoration: none;
 }
 
-ul li {
-	list-style: none;
-}
-
 a:hover {
 	color: #F57C00;
 	-webkit-animation: pulse 1s linear infinite;
 	-moz-animation: pulse 1s linear infinite;
 	-ms-animation: pulse 1s linear infinite;
 	animation: pulse 1s linear infinite;
+}
+
+ul li {
+	list-style: none;
 }
 
 .wrapper {
@@ -181,8 +181,12 @@ a:hover {
 }
 
 .result-item:hover {
-	box-shadow: 0 2px 4px 3px #CCF3FF,
-							0 3px 10px 3px #CCF3FF;
+	-webkit-animation: bounce 0.25s 4 alternate;
+	-moz-animation: bounce 0.25s 4 alternate;
+	-ms-animation: bounce 0.25s 4 alternate;
+	animation: bounce 0.25s 4 alternate;
+	box-shadow: 0 3px 10px 6px #CCF3FF,
+							0 3px 10px 6px #CCF3FF;
 }
 
 .result-item-avatar {
@@ -198,6 +202,25 @@ a:hover {
 
 .result-item:hover > h3{
 	color: #49D1F9;
+}
+
+.paginator {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+  justify-content: flex-end;
+  padding: 1rem 3rem;
+  width: 100%;
+}
+
+.page-number {
+	padding: 0.25rem;
+}
+
+.active {
+	color: #F57C00;
 }
 
 /********************************/
@@ -239,37 +262,40 @@ a:hover {
 
 /********************************/
 /* 					ANIMATIONS 					*/
+/*	Condensed for readability 	*/
 /********************************/
 @-moz-keyframes pulse {
 	25% {color: #FF8F12;}
 	75% {color: #FFB364;}
 }
-
 @-webkit-keyframes pulse {
   25% {color: #FF8F12;}
 	75% {color: #FFB364;}
 }
-
 @keyframes pulse {
   25% {color: #FF8F12;}
 	75% {color: #FFB364;}
 }
 
 @-moz-keyframes spin {
-	100% {
-		-moz-transform: rotate(360deg);
-	}
+	100% {-moz-transform: rotate(360deg);}
 }
-
 @-webkit-keyframes spin {
-	100% {
-		-webkit-transform: rotate(360deg);
-	}
+	100% {-webkit-transform: rotate(360deg);}
+}
+@keyframes spin {
+	100% {transform: rotate(360deg);}
 }
 
-@keyframes spin {
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform:rotate(360deg);
-	}
+@-moz-keyframes bounce {
+	from {transform: translateY(0px);}
+	to {transform: translateY(-15px);}
+}
+@-webkit-keyframes bounce {
+  from {transform: translateY(0px);}
+  to {transform: translateY(-15px);}
+}
+@keyframes bounce {
+ from {transform: translateY(0px);}
+ to {transform: translateY(-15px);}
 }
