@@ -30,7 +30,7 @@
       resultsTotal = data.total
       resultsTotal > 0 ? formatResults(data.results) : formatNoResults()
     })
-  	.catch(err => new Error('Hit a snag reaching API endpoint! Error code: ' + err))
+  	.catch(err => new Error(console.log('Hit a snag reaching API endpoint! Error code: ' + err)))
 	}
 
 	const formatNoResults = () => {
@@ -170,7 +170,7 @@
 		const laborTypes = [].slice.call(document.getElementsByClassName('labor-types'))
 		laborTypes.map((type) => {
 			type.addEventListener('click', function() {
-				type.text === 'None' ? laborType = '' : laborType = type.text
+				type.text === 'All' ? laborType = '' : laborType = type.text
 				runQuery()
 			})
 		})
