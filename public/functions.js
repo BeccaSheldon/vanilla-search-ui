@@ -40,8 +40,8 @@
 	// Make the results UI
 	const formatResults = (results) => {
 		if (resultsTotal > limit) {
-			makePaginator()
-	  	watchPageClicks()
+		  watchResultsDiv()
+			watchScrolling()
 		}
 
 		results.map((resultItem) => {
@@ -90,27 +90,37 @@
 		return el
 	}
 
-	// Make the pagination UI
-	const makePaginator = () => {
-		let totalPages = Math.ceil(resultsTotal / limit)
-		let paginatorDiv = resultsDiv.appendChild(makePaginatorDiv(totalPages))
-		Array(totalPages).fill().map((_, page) => {
-			paginatorDiv.appendChild(makePageButton(page))
-		})
+	// Make the infinite load UI
+	const getWindowHeightWithScroll = () => {
+		return window.innerHeight + window.scrollY
 	}
 
-	const makePageButton = (page) => {
-		let el = document.createElement('a')
-		page === start ? el.setAttribute('class', 'page-number active') : el.setAttribute('class', 'page-number')
-		// Adding 1 so that start can be 0 but the UI can show page 1
-		el.appendChild(document.createTextNode(page + 1))
-		return el
+	const getResultsDivHeight = () => {
+		return resultsDiv.scrollHeight
 	}
 
-	const makePaginatorDiv = () => {
-		let el = document.createElement('div')
-		el.setAttribute('class', 'paginator')
-		return el
+	const getTotalResultSets = () => {
+		return Math.ceil(resultsTotal / limit)
+	}
+
+	const setScrollHeight = () => {
+		console.log(getResultsDivHeight())
+		resultsDiv.style.height = getResultsDivHeight() * getTotalResultSets()
+		console.log(getResultsDivHeight())
+		return resultsDiv
+	}
+
+	const reachedEndOfResults = () => {
+    if (getWindowHeightWithScroll() > getResultsDivHeight()) return true
+	}
+
+	const moreResults = () => {
+		if (incrementStart() * limit < resultsTotal) return true
+	}
+
+	const getNextSet = () => {
+		start = incrementStart()
+		getData(makeUrl())
 	}
 
 	// Clear results UI
@@ -133,12 +143,21 @@
 		query = searchField.value
 	}
 
+	const incrementStart = () => {
+		return start + 1
+	}
+
+	const resetStart = () => {
+		start = 0
+	}
+
 	const checkQuery = () => {
 		if (query === '' || query === ' ' || query === null) return true
 	}
 
 	const runQuery = () => {
 		setQuery()
+		resetStart()
 		checkQuery() ? clearAll() : searchCompanies()
 	}
 
@@ -181,15 +200,16 @@
 		searchField.oninput = delayQuery(runQuery, 1000)
 	}
 
-	// Get next set of results based on page click & highlight that page as active
-	const watchPageClicks = () => {
-		let pages = [].slice.call(document.getElementsByClassName('page-number'))
-		pages.map((page) => {
-			page.addEventListener('click', function() {
-				start = page.text-1
-				page.setAttribute('class', 'page-number active')
-				searchCompanies()
-			})
+	// Watch for scroll changes to load next set of results
+	const watchScrolling = () => {
+		document.addEventListener('scroll', delayQuery(function() {
+	  	if (reachedEndOfResults() && moreResults()) getNextSet()
+	  }, 500))
+	}
+
+	const watchResultsDiv = () => {
+		document.addEventListener('onchange', function() {
+			setTimeOut(setScrollHeight, 2000)
 		})
 	}
 
